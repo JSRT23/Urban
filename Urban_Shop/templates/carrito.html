@@ -1,0 +1,41 @@
+{% load static %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Tu Carrito</title>
+    <link rel="stylesheet" href="{% static 'css/carrito.css' %}">
+</head>
+<body>
+    <h1>🛍️ Carrito de Compras</h1>
+
+    {% if carrito.items.all %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in carrito.items.all %}
+                <tr>
+                    <td>{{ item.producto.nombre }}</td>
+                    <td>${{ item.producto.precio }}</td>
+                    <td>{{ item.cantidad }}</td>
+                    <td>${{ item.subtotal }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h3>Total: ${{ carrito.total }}</h3>
+        <a href="#" class="btn-pagar">Pagar</a>
+        <a href="/" class="btn-volver">Seguir Agregando productos</a>
+    {% else %}
+        <p>Tu carrito está vacío 😢</p>
+        <a href="/" class="btn-volver">Ir a la tienda</a>
+    {% endif %}
+</body>
+</html>
